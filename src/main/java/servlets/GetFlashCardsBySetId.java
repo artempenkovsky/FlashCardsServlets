@@ -3,7 +3,6 @@ package servlets;
 import models.FlashCard;
 import services.impl.FlashCardServiceImpl;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,10 +24,9 @@ public class GetFlashCardsBySetId extends HttpServlet {
                 .stream()
                 .filter(flashCard -> !flashCard.isLearned())
                 .collect(Collectors.toList());
-        req.setAttribute("cards", cards);
-        req.setAttribute("flashCardSetId",flashCardSetId);
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/answerflashcard.jsp");
-        requestDispatcher.forward(req, resp);
+        servletContext.setAttribute("cards", cards);
+        servletContext.setAttribute("flashCardSetId",flashCardSetId);
+        getServletContext().getRequestDispatcher("/answerflashcard.jsp").forward(req, resp);
     }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -46,7 +44,7 @@ public class GetFlashCardsBySetId extends HttpServlet {
                 .stream()
                 .filter(flashCard -> !flashCard.isLearned())
                 .collect(Collectors.toList());
-        req.setAttribute("cards", cards);
+        servletContext.setAttribute("cards", cards);
         doGet(req,resp);
     }
 }

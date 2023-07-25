@@ -8,6 +8,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <title>Flash Cards</title>
@@ -16,24 +17,30 @@
             border-collapse: collapse;
             margin: 20px 0;
         }
+
         th, td {
             padding: 10px;
             border: 1px solid #ddd;
         }
+
         th {
             font-weight: bold;
             text-align: left;
         }
+
         th:last-child, td:last-child {
             text-align: center;
         }
+
         tr:hover {
             background-color: #f5f5f5;
         }
+
         form {
             display: inline-block;
             margin-top: 20px;
         }
+
         input[type="submit"] {
             padding: 5px 10px;
             border: none;
@@ -42,6 +49,7 @@
             border-radius: 4px;
             cursor: pointer;
         }
+
         input[type="submit"]:hover {
             background-color: #0069d9;
         }
@@ -60,16 +68,14 @@
     </tr>
     </thead>
     <tbody>
-    <% for(FlashCard flashCard :cards){%>
-
-    <tr>
-        <td><%=flashCard.getQuestion()%></td>
-        <td><%=flashCard.getAnswer()%></td>
-        <td><%=flashCard.isLearned()%></td>
-    </tr>
-    <%}%>
+    <c:forEach var="flashCard" items="${cards}">
+        <tr>
+            <td>${flashCard.getQuestion()}</td>
+            <td>${flashCard.getAnswer()}</td>
+            <td>${flashCard.isLearned()}</td>
+        </tr>
+    </c:forEach>
     </tbody>
 </table>
-
 </body>
 </html>

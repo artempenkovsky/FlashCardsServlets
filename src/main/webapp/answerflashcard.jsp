@@ -2,6 +2,7 @@
 <%@ page import="java.util.List" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <title>Flash Cards For Learning</title>
@@ -62,31 +63,30 @@
     </tr>
     </thead>
     <tbody>
-    <% for (FlashCard flashCard : cards) {%>
-
-    <tr>
-        <td><%=flashCard.getQuestion()%>
-        </td>
-        <td>
-            <form action="/getflashcards" method="post">
-                <input type="hidden" name="flashCardSetId" value=<%=flashCardSetId%>>
-                <input type="hidden" name="knowledge" value="YES">
-                <input type="hidden" name="flashCardId" value=<%=flashCard.getId()%>>
-                <input type="submit" value="I know">
-            </form>
-        </td>
-        <td>
-            <form action="/getflashcards" method="post">
-                <input type="hidden" name="flashCardSetId" value=<%=flashCardSetId%>>
-                <input type="hidden" name="knowledge" value="NO">
-                <input type="hidden" name="flashCardId" value=<%=flashCard.getId()%>>
-                <input type="submit" value="I don't know">
-            </form>
-        </td>
-    </tr>
-    <%}%>
+    <c:forEach var="flashCard" items="${cards}">
+        <tr>
+            <td>${flashCard.question}</td>
+            <td>
+                <form action="/getflashcards" method="post">
+                    <input type="hidden" name="flashCardSetId" value=${flashCardSetId}>
+                    <input type="hidden" name="knowledge" value="YES">
+                    <input type="hidden" name="flashCardId" value=${flashCard.id}>
+                    <input type="submit" value="I know">
+                </form>
+            </td>
+            <td>
+                <form action="/getflashcards" method="post">
+                    <input type="hidden" name="flashCardSetId" value=${flashCardSetId}>
+                    <input type="hidden" name="knowledge" value="NO">
+                    <input type="hidden" name="flashCardId" value=${flashCard.id}>
+                    <input type="submit" value="I don't know">
+                </form>
+            </td>
+        </tr>
+    </c:forEach>
     </tbody>
 </table>
+
 <form action="/" method="get">
     <input type="submit" value="To main page">
 </form>

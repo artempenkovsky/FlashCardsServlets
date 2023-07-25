@@ -99,27 +99,9 @@ public class FlashCardRepositoryImpl implements FlashCardRepository {
         }
     }
 
-
     @Override
     public FlashCard findFlashCardById(long flashCardId) {
-        FlashCard flashCard = new FlashCard();
-        try (Connection connection = myHikariDataSource.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM public.flashcard WHERE id=?");
-            statement.setLong(1, flashCardId);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                Long id = resultSet.getLong("id");
-                String titleCard = resultSet.getString("title_cards");
-                String question = resultSet.getString("question");
-                String answer = resultSet.getString("answer");
-                Boolean active = resultSet.getBoolean("learned");
-                Long poolCardId = resultSet.getLong("set_id");
-                flashCard = new FlashCard(id, titleCard, question, answer, active, poolCardId);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return flashCard;
+        return null;
     }
 
     @Override
