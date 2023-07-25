@@ -3,7 +3,6 @@ package servlets;
 import models.FlashCard;
 import services.impl.FlashCardServiceImpl;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -26,8 +25,7 @@ public class FlashCardServlet extends HttpServlet {
         ServletContext servletContext = getServletContext();
         FlashCardServiceImpl flashCardService = (FlashCardServiceImpl) servletContext.getAttribute("flashCardService");
         List<FlashCard> cards = flashCardService.getAllCards();
-        req.setAttribute("cards", cards);
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/flashcard.jsp");
-        requestDispatcher.forward(req, resp);
+        servletContext.setAttribute("cards", cards);
+        getServletContext().getRequestDispatcher("/flashcard.jsp").forward(req, resp);
     }
 }

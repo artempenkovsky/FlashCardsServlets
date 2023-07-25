@@ -100,6 +100,11 @@ public class FlashCardRepositoryImpl implements FlashCardRepository {
     }
 
     @Override
+    public FlashCard findFlashCardById(long flashCardId) {
+        return null;
+    }
+
+    @Override
     public void updateCountsOfFlashCardSet(Long flashCardSetId, int countOfCard, int countOfLearnedCard) {
         try (Connection connection = myHikariDataSource.getConnection()) {
             PreparedStatement statement = connection.prepareStatement("UPDATE public.flashcard_set SET  \"countOfCard\"=?, \"countOfLearnedCard\"=? WHERE id=? ;");
